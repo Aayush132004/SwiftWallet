@@ -9,14 +9,18 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "devDependencies": {
     "@types/node": "^22.19.19"
   },
   "dependencies": {
+    "@prisma/adapter-pg": "^7.8.0",
+    "@prisma/client": "^7.8.0",
+    "dotenv": "^16.0.3",
+    "pg": "^8.21.0",
     "prisma": "^7.8.0"
   },
-  "exports":{
-    "./client":"./src/index.ts"
+  "exports": {
+    "./client": "./src/index.ts"
   }
 }
