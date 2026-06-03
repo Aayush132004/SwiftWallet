@@ -20,7 +20,7 @@ export const authOptions = {
                     number: credentials.phone
                 }
             });
-            console.log("wxisting user:", existingUser);
+            console.log("existing user:", existingUser);
 
             if (existingUser) {
                 const passwordValidation = await bcrypt.compare(credentials.password, existingUser.password);
@@ -28,7 +28,7 @@ export const authOptions = {
                     return {
                         id: existingUser.id.toString(),
                         name: existingUser.name,
-                        email: existingUser.number
+                        number: existingUser.number
                     }
                 }
                 return null;
@@ -45,9 +45,9 @@ export const authOptions = {
                 return {
                     id: user.id.toString(),
                     name: user.name,
-                    email: user.number
+                    number: user.number
                 }
-            } catch(e) {
+            }catch(e) {
                 console.error(e);
             }
 
