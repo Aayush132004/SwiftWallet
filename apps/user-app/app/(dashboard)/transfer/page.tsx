@@ -1,5 +1,7 @@
 import prisma from "@repo/db/client";
 import { AddMoney } from "../../components/addmoneycard"
+
+
 import { BalanceCard } from "../../components/balancecard";
 import { OnRampTransactions } from "../../components/onramptransaction";
 import { getServerSession } from "next-auth";
@@ -41,9 +43,12 @@ export default async function() {
         <div className="text-4xl text-[#6a51a6] pt-8 mb-8 font-bold">
             Transfer
         </div>
+
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 p-4">
             <div>
                 <AddMoney />
+
+
             </div>
             <div>
                 <BalanceCard amount={balance.amount} locked={balance.locked} />

@@ -1,10 +1,18 @@
+
+
 import express from "express";
+
 import db from "@repo/db/client";
+
+
 const app = express();
 
 app.use(express.json())
 
 app.post("/hdfcWebhook", async (req, res) => {
+
+    console.log(process.env.DATABASE_URL);
+console.log(typeof process.env.DATABASE_URL);
     //TODO: Add zod validation here?
     //TODO: HDFC bank should ideally send us a secret so we know this is sent by them
     const paymentInformation: {
@@ -13,7 +21,7 @@ app.post("/hdfcWebhook", async (req, res) => {
         amount: string
     } = {
         token: req.body.token,
-        userId: req.body.user_identifier,
+        userId: req.body.userId,
         amount: req.body.amount
     };
 

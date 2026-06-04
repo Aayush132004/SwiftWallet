@@ -5,8 +5,13 @@ import { Center } from "@repo/ui/center";
 import { Select } from "@repo/ui/select";
 import { useState } from "react";
 import { TextInput } from "@repo/ui/textinput";
+import { createOnRampTxn } from "../../lib/actions/createOnRampTxn";
 
-const SUPPORTED_BANKS = [{
+interface Bank {
+    name: string;
+    redirectUrl: string;
+}
+const SUPPORTED_BANKS : Bank[] = [{
     name: "HDFC Bank",
     redirectUrl: "https://netbanking.hdfcbank.com"
 }, {
@@ -15,23 +20,27 @@ const SUPPORTED_BANKS = [{
 }];
 
 export const AddMoney = () => {
-    const [redirectUrl, setRedirectUrl] = useState(SUPPORTED_BANKS[0]?.redirectUrl);
+    const [amount, setAmount] = useState(0);
+    const [provider, setProvider] = useState<string>(SUPPORTED_BANKS[0]!.name);
+    const [redirectUrl, setRedirectUrl] = useState<string>(SUPPORTED_BANKS[0]!.redirectUrl);
     return <Card title="Add Money">
     <div className="w-full">
-        <TextInput label={"Amount"} placeholder={"Amount"} onChange={() => {
-
+        <TextInput label={"Amount"} placeholder={"Amount"} onChange={(value) => {
+            setAmount(Number(value));
         }} />
         <div className="py-4 text-left">
             Bank
         </div>
         <Select onSelect={(value) => {
+            setProvider(value);
             setRedirectUrl(SUPPORTED_BANKS.find(x => x.name === value)?.redirectUrl || "")
         }} options={SUPPORTED_BANKS.map(x => ({
             key: x.name,
             value: x.name
         }))} />
         <div className="flex justify-center pt-4">
-            <Button onClick={() => {
+            <Button onClick={async() => {
+                await createOnRampTxn(amount*100, provider);
                 window.location.href = redirectUrl || "";
             }}>
             Add Money
