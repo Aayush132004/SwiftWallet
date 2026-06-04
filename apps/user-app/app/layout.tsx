@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { Providers } from "./components/providers";
+import { AppbarClient } from "./components/AppbarClient";
 // import {Provider} from "react-redux";
 // import { store } from "@repo/store/store";
 
@@ -29,6 +30,7 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
        {/* <Provider store={store}> */}
        <Providers>
+        <AppbarClient />
         {children}
         </Providers>
        {/* </Provider> */}
